@@ -1,0 +1,120 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background-color: #524b4b; */
+}
+.content {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  transition: transform 0.1s ease-in-out;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.258);
+}
+.content:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  transform: scale(1.02);
+}
+.content h1 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #007bff;
+}
+
+.inputan {
+  margin-bottom: 25px;
+  width: 100%;
+  position: relative;
+}
+.inputan input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.1s;
+}
+.inputan input:focus {
+  border-color: #007bff;
+}
+.inputan label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #6f6b6b;
+  font-size: 14px;
+  transition: 0.3s;
+  font-style: italic;
+  pointer-events: none;
+}
+
+.inputan input:focus + label,
+.inputan input:not(:placeholder-shown) + label {
+  top: 0px;
+  left: 5px;
+  font-size: 14px;
+  color: #007bff;
+  background-color: rgba(255, 255, 255, 0.927);
+  padding: 0 5px;
+}
+.inputan .eyeIcon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  font-size: 0.8rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007bff;
+}
+.button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.button:hover {
+  background-color: #012750;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.content .anonimus {
+  font-size: 0.9rem;
+  margin-top: 15px;
+  color: #6f6b6b;
+}
+
+.content .anonimus .linknya {
+  color: #007bff;
+}
+.content .anonimus .linknya:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .content {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .content {
+    width: 90%;
+  }
+}
