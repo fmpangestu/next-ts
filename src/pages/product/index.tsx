@@ -15,6 +15,7 @@ const ProductPage = () => {
   // }, []);
   return (
     <>
+      <h1 className="text-3xl font-bold text-center my-5">Product Page</h1>
       <ProductViews products={isLoading ? [] : data.data} />
     </>
   );

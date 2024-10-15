@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import style from "./register.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 const RegisterViews = () => {
   const { push } = useRouter();
   const contentRef = useRef<HTMLDivElement>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -41,71 +42,90 @@ const RegisterViews = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleShowPassword2 = () => {
-    setShowPassword2(!showPassword2);
-  };
-  const handleClick = () => {
-    push("/product");
+  // const handleClick = () => {
+  //   push("/product");
+  // };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    setError("");
+    setIsLoading(true);
+    const data = {
+      username: event.target.username.value,
+      fullname: event.target.fullname.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+    const result = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (result.status === 200) {
+      event.target.reset();
+      setIsLoading(false);
+      push("/auth/login");
+      console.log("berhasil register");
+    } else {
+      setIsLoading(false);
+      setError(result.status === 400 ? "gagal register" : "");
+    }
   };
   return (
-    <div className={style.container}>
-      <div className={style.content} ref={contentRef}>
-        <h1>Register</h1>
-        <form action="">
-          <div className={style.inputan}>
-            <input type="text" id="username" placeholder="" />
-            <label htmlFor="username">Username</label>
-          </div>
-          <div className={style.inputan}>
-            <input type="text" id="fullname" placeholder="" />
-            <label htmlFor="fullname">Fullname</label>
-          </div>
-          <div className={style.inputan}>
-            <input type="text" id="email" placeholder="" />
-            <label htmlFor="email">Email</label>
-          </div>
-          <div className={style.inputan}>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              placeholder=""
-            />
-            <label htmlFor="password">Password</label>
-            <i
-              className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} 
-              ${style.eyeIcon}`}
-              onClick={handleShowPassword}
-            ></i>
-          </div>
-          <div className={style.inputan}>
-            <input
-              type={showPassword2 ? "text" : "password"}
-              id="password"
-              placeholder=""
-            />
-            <label htmlFor="password">Confirm Password</label>
-            <i
-              className={`fas ${showPassword2 ? "fa-eye-slash" : "fa-eye"} 
-              ${style.eyeIcon}`}
-              onClick={handleShowPassword2}
-            ></i>
-          </div>
-        </form>
-        <button
-          className={style.button}
-          type="submit"
-          onClick={() => handleClick()}
+    <>
+      {error && (
+        <p
+          className={
+            "text-center bg-red-500 px-10 fixed text-[16px] justify-center items-center text-white py-5 rounded-lg"
+          }
         >
-          Login
-        </button>
-        <p className={style.anonimus}>
-          sudah punya akun ? login{" "}
-          <Link className={style.linknya} href={"/auth/login"}>
-            Disini
-          </Link>
+          {error}
         </p>
+      )}
+      <div className={style.container}>
+        <div className={style.content} ref={contentRef}>
+          <h1>Register</h1>
+          <form onSubmit={handleSubmit}>
+            <div className={style.inputan}>
+              <input type="text" id="username" placeholder="" />
+              <label htmlFor="username">Username</label>
+            </div>
+            <div className={style.inputan}>
+              <input type="text" id="fullname" placeholder="" />
+              <label htmlFor="fullname">Fullname</label>
+            </div>
+            <div className={style.inputan}>
+              <input type="text" id="email" placeholder="" />
+              <label htmlFor="email">Email</label>
+            </div>
+            <div className={style.inputan}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder=""
+              />
+              <label htmlFor="password">Password</label>
+              <i
+                className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} 
+              ${style.eyeIcon}`}
+                onClick={handleShowPassword}
+              ></i>
+            </div>
+            <button className={style.button} type="submit" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Register"}
+            </button>
+          </form>
+          <p className={style.anonimus}>
+            sudah punya akun ? login{" "}
+            <Link className={style.linknya} href={"/auth/login"}>
+              Disini
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
