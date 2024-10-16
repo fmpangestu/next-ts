@@ -6,7 +6,7 @@ export function mainMiddleware(req: NextRequest) {
   const res = NextResponse.next();
   return res;
 }
-export default withAuth(mainMiddleware, ["/profile"]);
+export default withAuth(mainMiddleware, ["/profile", "/product", "/admin"]);
 // //? config supaya tidak reload
 // export const config = {
 //   matcher: ["/product"],

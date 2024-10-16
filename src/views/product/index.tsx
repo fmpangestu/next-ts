@@ -1,6 +1,7 @@
 import { productType } from "@/Types/product.type";
 import productStyle from "./product.module.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 const ProductViews = ({ products }: { products: productType[] }) => {
   // const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +39,13 @@ const ProductViews = ({ products }: { products: productType[] }) => {
         <>
           {products.map((product: productType) => (
             <Link href={`/product/${product.id}`} key={product.id}>
-              <img src={product.image} alt={product.name} width={"100%"} />
+              {/* <img src={product.image} alt={product.name} width={"100%"} /> */}
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={600}
+                height={600}
+              />
               <div
                 className={`px-3 py-2 w-full flex flex-col gap-2  mb-4  rounded-b-lg ${productStyle.customShadow}`}
               >
