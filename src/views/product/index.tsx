@@ -35,11 +35,10 @@ const ProductViews = ({ products }: { products: productType[] }) => {
 
   return (
     <div className="px-4 py-5 lg:py-16 lg:px-24 sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-10 box-border">
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <>
-          {products.map((product: productType) => (
+          {products?.map((product: productType) => (
             <Link href={`/product/${product.id}`} key={product.id}>
-              {/* <img src={product.image} alt={product.name} width={"100%"} /> */}
               <Image
                 src={product.image}
                 alt={product.name}
@@ -66,6 +65,7 @@ const ProductViews = ({ products }: { products: productType[] }) => {
           <div
             key={i}
             className="w-full bg-gray-300 animate-pulse rounded-lg mb-4"
+            data-testid="loading-placeholder"
           >
             <div className="h-48 bg-gray-900 rounded-t-lg"></div>
             <div className="px-3 py-2 w-full flex flex-col gap-2 mb-4 rounded-b-lg">
